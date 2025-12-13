@@ -94,8 +94,6 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  const displayPosts = posts.length > 0 ? posts : featuredPosts;
-
   return (
     <Layout>
       {/* Hero */}
@@ -151,14 +149,14 @@ const Blog = () => {
       </section>
 
       {/* Featured Post */}
-      {displayPosts.length > 0 && (
+      {posts.length > 0 && (
         <section className="py-16 bg-background">
           <div className="container-wide">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-lg opacity-0 animate-fade-up">
                 <img
-                  src={displayPosts[0].image_url || runningHero}
-                  alt={displayPosts[0].title}
+                  src={posts[0].image_url || runningHero}
+                  alt={posts[0].title}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -167,19 +165,19 @@ const Blog = () => {
                   Featured
                 </span>
                 <h2 className="font-serif text-3xl md:text-4xl mb-4">
-                  {displayPosts[0].title}
+                  {posts[0].title}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  {displayPosts[0].excerpt}
+                  {posts[0].excerpt}
                 </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                   <span className="flex items-center gap-2">
                     <User size={14} />
-                    {displayPosts[0].author}
+                    {posts[0].author}
                   </span>
                   <span className="flex items-center gap-2">
                     <Calendar size={14} />
-                    {format(new Date(displayPosts[0].created_at), "MMM d, yyyy")}
+                    {format(new Date(posts[0].created_at), "MMM d, yyyy")}
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock size={14} />
@@ -187,7 +185,7 @@ const Blog = () => {
                   </span>
                 </div>
                 <Link
-                  to={`/blog/${displayPosts[0].slug}`}
+                  to={`/blog/${posts[0].slug}`}
                   className="inline-flex items-center gap-2 font-sans font-medium text-primary hover:gap-3 transition-all"
                 >
                   Read Article
@@ -204,7 +202,7 @@ const Blog = () => {
         <div className="container-wide">
           <div className="flex justify-between items-center mb-12">
             <h2 className="font-serif text-3xl">Latest Articles</h2>
-            <span className="text-muted-foreground">{displayPosts.length} articles</span>
+            <span className="text-muted-foreground">{posts.length} articles</span>
           </div>
 
           {loading ? (
@@ -220,9 +218,13 @@ const Blog = () => {
                 </div>
               ))}
             </div>
+          ) : posts.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground text-lg">No articles published yet. Check back soon!</p>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayPosts.slice(1).map((post, index) => (
+              {posts.slice(1).map((post, index) => (
                 <article
                   key={post.id}
                   className="group bg-background rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift opacity-0 animate-fade-up"
@@ -247,10 +249,10 @@ const Blog = () => {
                     <div className="p-6">
                       <div className="flex items-center gap-4 mb-3">
                         <span className="font-sans text-xs text-primary font-medium uppercase tracking-wide">
-                          {(post as typeof featuredPosts[0]).category || "Article"}
+                          Article
                         </span>
                         <span className="text-muted-foreground text-xs">
-                          {(post as typeof featuredPosts[0]).readTime || "5 min read"}
+                          5 min read
                         </span>
                       </div>
                       <h3 className="font-serif text-xl mb-3 group-hover:text-primary transition-colors line-clamp-2">
