@@ -113,8 +113,8 @@ const Contact = () => {
                 <span className="italic">Conversation</span>
               </h2>
               <p className="font-sans text-muted-foreground leading-relaxed mb-12">
-                Whether you have questions about our collections, need styling advice,
-                or simply want to share your STRIDE experience, our team is here to help.
+              Whether you have questions about our collections, need styling advice,
+                or simply want to share your ACCENDO experience, our team is here to help.
               </p>
 
               <div className="space-y-8">
@@ -123,11 +123,11 @@ const Contact = () => {
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-lg mb-1">Visit Us</h3>
+                    <h3 className="font-serif text-lg mb-1">Location</h3>
                     <p className="font-sans text-muted-foreground text-sm">
-                      Via della Vigna Nuova, 18
+                      Contact us for our
                       <br />
-                      50123 Florence, Italy
+                      showroom locations
                     </p>
                   </div>
                 </div>
@@ -139,7 +139,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-serif text-lg mb-1">Email Us</h3>
                     <p className="font-sans text-muted-foreground text-sm">
-                      hello@stride.com
+                      hello@accendo.com
                     </p>
                   </div>
                 </div>
@@ -149,9 +149,9 @@ const Contact = () => {
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-lg mb-1">Call Us</h3>
+                    <h3 className="font-serif text-lg mb-1">Phone</h3>
                     <p className="font-sans text-muted-foreground text-sm">
-                      +39 055 123 4567
+                      Contact us via email
                     </p>
                   </div>
                 </div>
