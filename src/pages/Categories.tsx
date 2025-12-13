@@ -8,32 +8,32 @@ import oxfordsImg from "@/assets/category-oxfords.jpg";
 
 const categories = [
   {
-    name: "Sneakers",
-    slug: "sneakers",
+    name: "Running Shoes",
+    slug: "running-shoes",
     image: sneakersImg,
     description:
-      "Contemporary sneakers crafted with the same meticulous attention to detail as our formal collection. Premium leather uppers, cushioned insoles, and clean silhouettes that elevate everyday style.",
+      "Engineered for performance, designed for comfort. Our running shoes combine cutting-edge technology with premium materials to deliver unmatched performance.",
   },
   {
-    name: "Loafers",
-    slug: "loafers",
-    image: loafersImg,
-    description:
-      "The epitome of effortless elegance. Our loafers blend comfort with sophistication, featuring hand-sewn moccasin construction and buttery-soft leather that molds to your foot.",
-  },
-  {
-    name: "Boots",
-    slug: "boots",
-    image: bootsImg,
-    description:
-      "From refined Chelsea boots to rugged yet refined lace-ups, our boot collection offers versatility without compromising on quality. Built to weather any occasion with grace.",
-  },
-  {
-    name: "Oxfords",
-    slug: "oxfords",
+    name: "Sports Wear",
+    slug: "sports-wear",
     image: oxfordsImg,
     description:
-      "The cornerstone of classic menswear. Our Oxfords feature Goodyear-welted construction, full-grain calfskin, and timeless cap-toe designs that define sartorial excellence.",
+      "Athletic footwear for every sport and activity. From the court to the field, designed to enhance your athletic performance.",
+  },
+  {
+    name: "Sneakers",
+    slug: "sneakers",
+    image: loafersImg,
+    description:
+      "Contemporary style meets everyday comfort. Each pair is crafted with meticulous attention to detail, using only the finest materials.",
+  },
+  {
+    name: "Sliders",
+    slug: "sliders",
+    image: bootsImg,
+    description:
+      "Effortless comfort for relaxed moments. Perfect for poolside lounging, post-workout recovery, or casual everyday wear.",
   },
 ];
 
@@ -90,10 +90,10 @@ const Categories = () => {
                     {category.description}
                   </p>
                   <Link
-                    to="/contact"
+                    to={`/categories/${category.slug}`}
                     className="inline-flex items-center gap-2 font-sans text-sm font-medium tracking-wide uppercase text-foreground hover:text-primary transition-colors group"
                   >
-                    Inquire About This Collection
+                    Explore Collection
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
