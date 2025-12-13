@@ -16,7 +16,6 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -84,64 +83,35 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        const { data, error } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/admin`,
-          },
-        });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
 
-        if (error) throw error;
+      if (error) throw error;
 
-        if (data.user) {
-          // Add user as admin
-          const { error: adminError } = await supabase
-            .from("admin_users")
-            .insert({ user_id: data.user.id });
+      // Check if user is admin
+      const { data: adminData, error: adminError } = await supabase
+        .from("admin_users")
+        .select("id")
+        .eq("user_id", data.user.id)
+        .single();
 
-          if (adminError) {
-            console.error("Error adding admin:", adminError);
-          }
-        }
-
+      if (adminError || !adminData) {
+        await supabase.auth.signOut();
         toast({
-          title: "Account Created",
-          description: "You can now sign in with your credentials.",
+          title: "Access Denied",
+          description: "You don't have admin access. Contact the site owner.",
+          variant: "destructive",
         });
-        setIsSignUp(false);
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (error) throw error;
-
-        // Check if user is admin
-        const { data: adminData, error: adminError } = await supabase
-          .from("admin_users")
-          .select("id")
-          .eq("user_id", data.user.id)
-          .single();
-
-        if (adminError || !adminData) {
-          await supabase.auth.signOut();
-          toast({
-            title: "Access Denied",
-            description: "You don't have admin access.",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        toast({
-          title: "Welcome Back",
-          description: "You've been signed in successfully.",
-        });
-        navigate("/admin");
+        return;
       }
+
+      toast({
+        title: "Welcome Back",
+        description: "You've been signed in successfully.",
+      });
+      navigate("/admin");
     } catch (error: any) {
       console.error("Auth error:", error);
       
@@ -168,7 +138,7 @@ const AdminLogin = () => {
         <div className="text-center mb-8">
           <h1 className="font-serif text-3xl font-medium mb-2">ACCENDO Admin</h1>
           <p className="font-sans text-muted-foreground">
-            {isSignUp ? "Create your admin account" : "Sign in to manage your content"}
+            Sign in to manage your content
           </p>
         </div>
 
@@ -207,19 +177,9 @@ const AdminLogin = () => {
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Loading..." : isSignUp ? "Create Account" : "Sign In"}
+              {loading ? "Loading..." : "Sign In"}
             </Button>
           </form>
-
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="font-sans text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
-            </button>
-          </div>
         </div>
 
         <div className="mt-8 text-center">
