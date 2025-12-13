@@ -2,26 +2,26 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
-import { ArrowRight, Star, Truck, Shield, Award, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Star, Truck, Shield, Award, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-shoes.jpg";
-import craftImage from "@/assets/about-craftsmanship.jpg";
 import runningHero from "@/assets/running-shoes-hero.jpg";
 import lifestyleSneakers from "@/assets/lifestyle-sneakers.jpg";
 import slidersProduct from "@/assets/sliders-product.jpg";
 import sportsAction from "@/assets/sports-action.jpg";
+import craftImage from "@/assets/about-craftsmanship.jpg";
 
 const categories = [
-  { name: "Running Shoes", slug: "running-shoes", image: runningHero },
-  { name: "Sports Wear", slug: "sports-wear", image: sportsAction },
-  { name: "Sneakers", slug: "sneakers", image: lifestyleSneakers },
-  { name: "Sliders", slug: "sliders", image: slidersProduct },
+  { name: "Running", slug: "running-shoes", image: runningHero, count: "24" },
+  { name: "Sports", slug: "sports-wear", image: sportsAction, count: "18" },
+  { name: "Sneakers", slug: "sneakers", image: lifestyleSneakers, count: "32" },
+  { name: "Sliders", slug: "sliders", image: slidersProduct, count: "12" },
 ];
 
 const features = [
-  { icon: Truck, title: "Free Shipping", desc: "On orders over $100" },
+  { icon: Truck, title: "Free Shipping", desc: "Orders over $100" },
   { icon: Shield, title: "2 Year Warranty", desc: "Quality guaranteed" },
-  { icon: Award, title: "Premium Quality", desc: "Handcrafted excellence" },
-  { icon: Zap, title: "Fast Delivery", desc: "2-3 business days" },
+  { icon: Award, title: "Premium Quality", desc: "Handcrafted" },
+  { icon: Zap, title: "Fast Delivery", desc: "2-3 days" },
 ];
 
 const testimonials = [
@@ -40,94 +40,106 @@ const marqueeWords = [
   "INNOVATION",
   "QUALITY",
   "DURABILITY",
-  "EXCELLENCE",
-  "PASSION",
 ];
 
 const Index = () => {
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Hero Section - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Premium leather shoes"
+            alt="Premium footwear"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-transparent" />
+          <div className="absolute inset-0 bg-background/40" />
         </div>
 
-        <div className="relative container-wide py-20">
-          <div className="max-w-2xl">
-            <span className="inline-block font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 opacity-0 animate-fade-up">
+        {/* Hero Content */}
+        <div className="relative z-10 container-wide text-center py-32">
+          {/* Brand Tag */}
+          <div className="inline-flex items-center gap-3 mb-8 opacity-0 animate-fade-up">
+            <div className="w-12 h-px bg-foreground" />
+            <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-foreground">
               Premium Footwear
             </span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] mb-6 opacity-0 animate-fade-up delay-100">
-              Walk in
-              <br />
-              <span className="italic text-primary">Distinction</span>
-            </h1>
-            <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg opacity-0 animate-fade-up delay-200">
-              Engineered for performance, designed for style. Experience footwear 
-              that elevates every step you take.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-up delay-300">
-              <Button asChild variant="hero" size="lg" className="animate-pulse-glow">
-                <Link to="/categories">
-                  Explore Collection
-                  <ArrowRight className="ml-2" />
-                </Link>
-              </Button>
-              <Button asChild variant="hero-outline" size="lg">
-                <Link to="/about">Our Story</Link>
-              </Button>
-            </div>
+            <div className="w-12 h-px bg-foreground" />
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="font-display text-[clamp(4rem,15vw,12rem)] leading-[0.85] tracking-tight mb-8 opacity-0 animate-fade-up delay-100">
+            NEW CITY
+            <br />
+            <span className="text-primary">SNEAKERS</span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="font-sans text-lg md:text-xl text-foreground/70 max-w-md mx-auto mb-12 opacity-0 animate-fade-up delay-200">
+            The Best Walking Shoes — Engineered for performance, designed for style.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up delay-300">
+            <Button asChild variant="default" size="xl">
+              <Link to="/categories">
+                Explore Now
+                <ArrowRight className="ml-2" size={18} />
+              </Link>
+            </Button>
+            <Button asChild variant="hero-outline" size="xl">
+              <Link to="/about">Our Story</Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0 animate-fade-up delay-500">
+          <span className="font-sans text-xs tracking-[0.2em] uppercase text-foreground/50">Scroll</span>
+          <div className="w-px h-12 bg-foreground/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-foreground animate-marquee" style={{ animationDuration: "1.5s" }} />
           </div>
         </div>
 
         {/* Floating Stats */}
-        <div className="absolute bottom-12 right-12 hidden lg:flex gap-8 opacity-0 animate-fade-up delay-500">
-          <div className="text-center">
-            <span className="font-serif text-4xl text-primary font-bold">10K+</span>
-            <p className="text-sm text-muted-foreground mt-1">Happy Customers</p>
+        <div className="absolute bottom-12 right-12 hidden xl:flex gap-12 opacity-0 animate-fade-up delay-600">
+          <div className="text-right">
+            <span className="font-display text-5xl text-foreground">10K+</span>
+            <p className="font-sans text-xs tracking-widest uppercase text-foreground/50 mt-1">Happy Customers</p>
           </div>
-          <div className="text-center">
-            <span className="font-serif text-4xl text-primary font-bold">50+</span>
-            <p className="text-sm text-muted-foreground mt-1">Shoe Models</p>
-          </div>
-          <div className="text-center">
-            <span className="font-serif text-4xl text-primary font-bold">4.9</span>
-            <p className="text-sm text-muted-foreground mt-1">Avg Rating</p>
+          <div className="text-right">
+            <span className="font-display text-5xl text-foreground">50+</span>
+            <p className="font-sans text-xs tracking-widest uppercase text-foreground/50 mt-1">Shoe Models</p>
           </div>
         </div>
       </section>
 
       {/* Marquee Section */}
-      <section className="py-6 bg-primary text-primary-foreground overflow-hidden">
-        <Marquee speed="fast" className="py-2">
+      <section className="py-5 bg-foreground text-background overflow-hidden border-y border-border">
+        <Marquee speed="fast" className="py-1">
           {marqueeWords.map((word, index) => (
-            <span key={index} className="flex items-center gap-8 mx-8 font-sans text-xl font-bold tracking-widest">
+            <span key={index} className="flex items-center gap-12 mx-12 font-display text-2xl tracking-wide">
               {word}
-              <span className="text-primary-foreground/50">★</span>
+              <span className="text-primary text-3xl">•</span>
             </span>
           ))}
         </Marquee>
       </section>
 
       {/* Features Bar */}
-      <section className="py-8 bg-secondary border-b border-border">
+      <section className="py-10 bg-background border-b border-border">
         <div className="container-wide">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div 
                 key={feature.title} 
-                className="flex items-center gap-3 opacity-0 animate-fade-up"
+                className="flex items-center gap-4 opacity-0 animate-fade-up"
                 style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
               >
-                <feature.icon className="w-8 h-8 text-primary" />
+                <feature.icon className="w-6 h-6 text-foreground" strokeWidth={1.5} />
                 <div>
-                  <p className="font-sans font-semibold text-sm">{feature.title}</p>
+                  <p className="font-sans font-semibold text-sm tracking-wide">{feature.title}</p>
                   <p className="font-sans text-xs text-muted-foreground">{feature.desc}</p>
                 </div>
               </div>
@@ -136,41 +148,54 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Categories Section - Bold Grid */}
       <section className="py-24 md:py-32 bg-background">
         <div className="container-wide">
-          <div className="text-center mb-16">
-            <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block opacity-0 animate-fade-up">
-              Collections
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-medium opacity-0 animate-fade-up delay-100">
-              Explore Our Range
-            </h2>
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+            <div>
+              <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-4 block opacity-0 animate-fade-up">
+                Browse
+              </span>
+              <h2 className="font-display text-5xl md:text-7xl opacity-0 animate-fade-up delay-100">
+                THE NEWEST<br />PRODUCTS
+              </h2>
+            </div>
+            <p className="font-sans text-muted-foreground max-w-sm opacity-0 animate-fade-up delay-200">
+              Find the ideal pieces for you. Curated collections for every style and occasion.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {categories.map((category, index) => (
               <Link
                 key={category.slug}
                 to={`/categories/${category.slug}`}
-                className="group relative aspect-[3/4] overflow-hidden opacity-0 animate-fade-up hover-lift"
-                style={{ animationDelay: `${index * 100 + 200}ms`, animationFillMode: 'forwards' }}
+                className="group relative aspect-[3/4] overflow-hidden bg-secondary opacity-0 animate-fade-up hover-lift"
+                style={{ animationDelay: `${index * 100 + 300}ms`, animationFillMode: 'forwards' }}
               >
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-                <div className="absolute inset-0 flex items-end p-6">
-                  <div className="transform transition-transform duration-300 group-hover:translate-y-[-8px]">
-                    <h3 className="font-serif text-2xl text-background mb-2">
-                      {category.name}
-                    </h3>
-                    <span className="inline-flex items-center gap-2 font-sans text-sm text-background/80 uppercase tracking-wide">
-                      Shop Now
-                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
-                    </span>
+                <div className="absolute inset-0 bg-gradient-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Category Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="font-sans text-xs tracking-widest uppercase text-background/70 block mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {category.count} Items
+                      </span>
+                      <h3 className="font-display text-3xl text-background transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        {category.name}
+                      </h3>
+                    </div>
+                    <div className="w-12 h-12 bg-background text-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <ArrowUpRight size={20} />
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -179,96 +204,75 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Split Image Section */}
-      <section className="py-24 md:py-32 bg-secondary overflow-hidden">
-        <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="relative opacity-0 animate-fade-up">
-              <div className="aspect-square overflow-hidden rounded-lg shadow-lg">
-                <img
-                  src={sportsAction}
-                  alt="Sports performance"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-2/3 aspect-video overflow-hidden rounded-lg shadow-lg border-4 border-background">
-                <img
-                  src={lifestyleSneakers}
-                  alt="Street style"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+      {/* Featured Banner - Full Width */}
+      <section className="relative py-32 md:py-48 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={sportsAction}
+            alt="Sports performance"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-foreground/60" />
+        </div>
 
-            <div className="lg:pl-8 opacity-0 animate-fade-up delay-200">
-              <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
-                Why ACCENDO
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">
-                Built for
-                <br />
-                <span className="italic text-primary">Champions</span>
-              </h2>
-              <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-6">
-                Every pair of ACCENDO shoes is engineered with cutting-edge technology 
-                and premium materials to deliver unmatched performance, comfort, and style.
-              </p>
-              <ul className="space-y-4 mb-10">
-                {["Advanced cushioning technology", "Breathable mesh construction", "Durable rubber outsole", "Ergonomic design"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 font-sans text-muted-foreground">
-                    <span className="w-2 h-2 bg-primary rounded-full" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild variant="default">
-                <Link to="/about">
-                  Learn More
-                  <ArrowRight className="ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
+        <div className="relative z-10 container-wide text-center">
+          <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-background/70 mb-6 block opacity-0 animate-fade-up">
+            Why Choose Us
+          </span>
+          <h2 className="font-display text-5xl md:text-8xl text-background mb-8 opacity-0 animate-fade-up delay-100">
+            BUILT FOR<br />CHAMPIONS
+          </h2>
+          <p className="font-sans text-lg text-background/70 max-w-xl mx-auto mb-12 opacity-0 animate-fade-up delay-200">
+            Every pair is engineered with cutting-edge technology and premium materials
+            to deliver unmatched performance.
+          </p>
+          <Button asChild variant="outline" size="lg" className="border-background text-background hover:bg-background hover:text-foreground opacity-0 animate-fade-up delay-300">
+            <Link to="/about">
+              Learn More
+              <ArrowRight className="ml-2" size={16} />
+            </Link>
+          </Button>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-24 md:py-32">
+      {/* Split Content Section */}
+      <section className="py-24 md:py-32 bg-background">
         <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="relative opacity-0 animate-fade-up">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={craftImage}
-                  alt="Craftsmanship"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-1/2 h-1/2 border-2 border-primary hidden lg:block" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            {/* Image Side */}
+            <div className="relative aspect-square lg:aspect-auto overflow-hidden opacity-0 animate-slide-in-left">
+              <img
+                src={craftImage}
+                alt="Craftsmanship"
+                className="w-full h-full object-cover"
+              />
             </div>
 
-            <div className="lg:pl-8 opacity-0 animate-fade-up delay-200">
-              <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+            {/* Content Side */}
+            <div className="bg-secondary p-12 lg:p-20 flex flex-col justify-center opacity-0 animate-slide-in-right delay-200">
+              <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-6 block">
                 Our Heritage
               </span>
-              <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">
-                A Legacy of
-                <br />
-                <span className="italic">Excellence</span>
+              <h2 className="font-display text-4xl md:text-6xl mb-8">
+                A LEGACY OF<br />EXCELLENCE
               </h2>
-              <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-6">
+              <p className="font-sans text-muted-foreground leading-relaxed mb-8">
                 Since our founding, we've been perfecting the art of shoemaking.
                 Each pair is a testament to generations of expertise, combining
                 time-honored techniques with contemporary sensibilities.
               </p>
-              <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-10">
-                We source only the finest materials, working with suppliers
-                that share our commitment to quality and sustainability.
-              </p>
-              <Button asChild variant="outline">
+              <div className="grid grid-cols-2 gap-8 mb-10">
+                {["Advanced Technology", "Premium Materials", "Expert Craftsmanship", "Sustainable Practices"].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-primary mt-2 flex-shrink-0" />
+                    <span className="font-sans text-sm text-foreground">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Button asChild variant="default" size="lg" className="self-start">
                 <Link to="/about">
                   Discover More
-                  <ArrowRight className="ml-2" />
+                  <ArrowRight className="ml-2" size={16} />
                 </Link>
               </Button>
             </div>
@@ -276,69 +280,79 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Marquee */}
-      <section className="py-16 bg-foreground text-background overflow-hidden">
-        <div className="container-wide mb-8">
-          <h2 className="font-serif text-3xl md:text-4xl font-medium text-center">
-            What Our Customers Say
-          </h2>
+      {/* Testimonials Section */}
+      <section className="py-20 bg-foreground text-background overflow-hidden">
+        <div className="container-wide mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <h2 className="font-display text-4xl md:text-5xl">
+              WHAT OUR<br />CUSTOMERS SAY
+            </h2>
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                ))}
+              </div>
+              <span className="font-sans text-sm text-background/70">4.9 Average Rating</span>
+            </div>
+          </div>
         </div>
         <Marquee pauseOnHover className="py-6">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="mx-4 p-6 bg-background/10 backdrop-blur rounded-lg min-w-[300px] max-w-[350px]"
+              className="mx-3 p-8 bg-background/5 backdrop-blur border border-background/10 min-w-[320px] max-w-[380px]"
             >
-              <div className="flex gap-1 mb-3">
+              <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                 ))}
               </div>
-              <p className="font-sans text-background/90 mb-4 italic">"{testimonial.text}"</p>
-              <p className="font-sans font-semibold text-primary">{testimonial.name}</p>
+              <p className="font-sans text-background/80 mb-6 leading-relaxed">"{testimonial.text}"</p>
+              <p className="font-sans font-semibold text-background tracking-wide">{testimonial.name}</p>
             </div>
           ))}
         </Marquee>
       </section>
 
       {/* Values Section */}
-      <section className="py-24 md:py-32 bg-secondary">
+      <section className="py-24 md:py-32 bg-background">
         <div className="container-wide">
           <div className="text-center mb-16">
-            <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+            <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-4 block">
               Our Promise
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-medium">
-              What Sets Us Apart
+            <h2 className="font-display text-5xl md:text-6xl">
+              WHAT SETS US APART
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border">
             {[
               {
+                num: "01",
                 title: "Performance",
-                description:
-                  "Engineered with advanced technology to enhance your athletic performance and everyday comfort.",
+                description: "Engineered with advanced technology to enhance your athletic performance and everyday comfort.",
               },
               {
+                num: "02",
                 title: "Sustainable",
-                description:
-                  "We use responsibly sourced materials and eco-conscious production methods.",
+                description: "We use responsibly sourced materials and eco-conscious production methods.",
               },
               {
+                num: "03",
                 title: "Timeless",
-                description:
-                  "Designed to transcend trends and become a cherished part of your wardrobe.",
+                description: "Designed to transcend trends and become a cherished part of your wardrobe.",
               },
             ].map((value, index) => (
               <div
                 key={value.title}
-                className="text-center opacity-0 animate-fade-up hover-lift p-8 rounded-lg bg-background shadow-md transition-shadow hover:shadow-lg"
+                className="p-12 border-r last:border-r-0 border-border opacity-0 animate-fade-up group hover:bg-secondary transition-colors duration-500"
                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
               >
-                <span className="font-serif text-6xl md:text-7xl text-primary/30 block mb-4">
-                  0{index + 1}
+                <span className="font-display text-7xl text-border group-hover:text-primary/20 transition-colors duration-500 block mb-6">
+                  {value.num}
                 </span>
-                <h3 className="font-serif text-2xl mb-4 text-foreground">{value.title}</h3>
+                <h3 className="font-display text-2xl mb-4">{value.title}</h3>
                 <p className="font-sans text-muted-foreground leading-relaxed">
                   {value.description}
                 </p>
@@ -348,23 +362,23 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Instagram-style Gallery */}
-      <section className="py-16 bg-background overflow-hidden">
-        <div className="container-wide mb-8 text-center">
-          <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+      {/* Instagram Gallery */}
+      <section className="py-16 bg-secondary overflow-hidden">
+        <div className="container-wide mb-10 text-center">
+          <span className="font-sans text-xs font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-4 block">
             @ACCENDO
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-medium">
-            Follow the Journey
+          <h2 className="font-display text-4xl md:text-5xl">
+            FOLLOW THE JOURNEY
           </h2>
         </div>
         <Marquee speed="slow" className="py-4">
           {[runningHero, lifestyleSneakers, slidersProduct, sportsAction, craftImage, heroImage].map((img, i) => (
-            <div key={i} className="mx-2 aspect-square w-64 overflow-hidden group cursor-pointer">
+            <div key={i} className="mx-2 aspect-square w-72 overflow-hidden group cursor-pointer">
               <img 
                 src={img} 
                 alt={`Gallery ${i + 1}`}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             </div>
           ))}
@@ -372,19 +386,21 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 md:py-32 bg-primary text-primary-foreground">
+      <section className="py-32 md:py-40 bg-background">
         <div className="container-wide text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6 opacity-0 animate-fade-up">
-            Ready to Elevate Your Game?
+          <h2 className="font-display text-6xl md:text-8xl lg:text-9xl mb-8 opacity-0 animate-fade-up">
+            READY TO<br />
+            <span className="text-primary">ELEVATE</span><br />
+            YOUR GAME?
           </h2>
-          <p className="font-sans text-lg text-primary-foreground/80 mb-10 max-w-xl mx-auto opacity-0 animate-fade-up delay-100">
+          <p className="font-sans text-lg text-muted-foreground mb-12 max-w-xl mx-auto opacity-0 animate-fade-up delay-100">
             Join thousands of satisfied customers who've discovered the ACCENDO difference.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up delay-200">
-            <Button asChild variant="secondary" size="lg">
+            <Button asChild variant="default" size="xl">
               <Link to="/categories">Shop Now</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild variant="outline" size="xl">
               <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
