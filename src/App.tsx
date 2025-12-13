@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Terms from "./pages/Terms";
 import AdminLogin from "./pages/AdminLogin";
+import AdminSetup from "./pages/AdminSetup";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/setup" element={<AdminSetup />} />
           <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
