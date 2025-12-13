@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -44,6 +45,12 @@ export const Header = () => {
                 {link.label}
               </Link>
             ))}
+            <Link to="/admin/login">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Shield size={16} />
+                Admin
+              </Button>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -80,6 +87,12 @@ export const Header = () => {
               {link.label}
             </Link>
           ))}
+          <Link to="/admin/login" onClick={() => setIsOpen(false)}>
+            <Button variant="outline" size="sm" className="gap-2 w-full justify-center">
+              <Shield size={16} />
+              Admin
+            </Button>
+          </Link>
         </nav>
       </div>
     </header>
