@@ -166,7 +166,7 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="font-serif text-3xl font-medium mb-2">STRIDE Admin</h1>
+          <h1 className="font-serif text-3xl font-medium mb-2">ACCENDO Admin</h1>
           <p className="font-sans text-muted-foreground">
             {isSignUp ? "Create your admin account" : "Sign in to manage your content"}
           </p>

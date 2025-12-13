@@ -25,7 +25,7 @@ const Terms = () => {
               <div className="opacity-0 animate-fade-up" style={{ animationFillMode: 'forwards' }}>
                 <h2 className="font-serif text-2xl mb-4">1. Introduction</h2>
                 <p className="font-sans text-muted-foreground leading-relaxed">
-                  Welcome to STRIDE. These Terms and Conditions govern your use of our website
+                  Welcome to ACCENDO. These Terms and Conditions govern your use of our website
                   and the purchase of products from our collections. By accessing our website
                   or making a purchase, you agree to be bound by these terms.
                 </p>
@@ -97,13 +97,13 @@ const Terms = () => {
                 </p>
                 <div className="mt-4 p-6 bg-secondary">
                   <p className="font-sans text-sm text-foreground">
-                    <strong>STRIDE S.r.l.</strong>
+                    <strong>ACCENDO Ltd.</strong>
                     <br />
-                    Via della Vigna Nuova, 18
+                    Contact us through our website
                     <br />
-                    50123 Florence, Italy
+                    or via email below
                     <br />
-                    Email: legal@stride.com
+                    Email: legal@accendo.com
                   </p>
                 </div>
               </div>

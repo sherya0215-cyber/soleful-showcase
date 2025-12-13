@@ -25,7 +25,7 @@ export const Header = () => {
             to="/"
             className="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
           >
-            STRIDE
+            ACCENDO
           </Link>
 
           {/* Desktop Navigation */}

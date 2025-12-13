@@ -21,7 +21,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link to="/" className="font-serif text-3xl font-semibold tracking-tight">
-              STRIDE
+            ACCENDO
             </Link>
             <p className="mt-4 text-background/70 font-sans text-sm leading-relaxed max-w-md">
               Crafted with passion in the heart of Italy. Each pair tells a story of 
@@ -66,7 +66,7 @@ export const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-background/20 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-background/50 font-sans text-sm">
-            © {new Date().getFullYear()} STRIDE. All rights reserved.
+            © {new Date().getFullYear()} ACCENDO. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a

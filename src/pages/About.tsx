@@ -21,8 +21,8 @@ const About = () => {
               <span className="italic">Passion</span>
             </h1>
             <p className="font-sans text-lg md:text-xl text-muted-foreground leading-relaxed opacity-0 animate-fade-up delay-200">
-              Since 1952, STRIDE has been synonymous with exceptional quality,
-              timeless design, and the enduring art of Italian shoemaking.
+            ACCENDO has been synonymous with exceptional quality,
+            timeless design, and the enduring art of premium shoemaking.
             </p>
           </div>
         </div>
@@ -40,17 +40,17 @@ const About = () => {
               </h2>
               <div className="space-y-6 font-sans text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  It began in a small workshop in Florence, where master cobbler
-                  Giovanni Rossi first put leather to last. What started as a
-                  humble craft passed down through generations has blossomed into a
-                  globally recognized symbol of Italian excellence.
+                  It began with a vision: to create footwear that ignites
+                  confidence with every step. What started as a humble craft
+                  has blossomed into a globally recognized symbol of
+                  excellence.
                 </p>
                 <p>
-                  Today, the fourth generation of the Rossi family continues this
-                  legacy, combining ancestral techniques with contemporary
-                  innovation. Each pair of STRIDE shoes carries within it over
-                  seven decades of accumulated wisdom, passion, and unwavering
-                  dedication to quality.
+                  Today, our team of master craftsmen continues this legacy,
+                  combining ancestral techniques with contemporary
+                  innovation. Each pair of ACCENDO shoes carries within it
+                  accumulated wisdom, passion, and unwavering dedication to
+                  quality.
                 </p>
                 <p>
                   We believe that truly exceptional footwear is more than an

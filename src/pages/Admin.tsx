@@ -241,8 +241,8 @@ const Admin = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
-              <Link to="/" className="font-serif text-xl font-medium">
-                STRIDE
+              <Link to="/" className="font-serif text-xl font-medium text-primary">
+                ACCENDO
               </Link>
               <span className="text-muted-foreground">/</span>
               <span className="font-sans text-sm text-muted-foreground">Admin</span>

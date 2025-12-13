@@ -128,9 +128,9 @@ const Index = () => {
                 <span className="italic">Excellence</span>
               </h2>
               <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-6">
-                Since 1952, we've been perfecting the art of shoemaking in the
-                rolling hills of Tuscany. Each pair is a testament to
-                generations of expertise, combining time-honored techniques with
+              Since our founding, we've been perfecting the art of shoemaking.
+              Each pair is a testament to generations of expertise, combining
+              time-honored techniques with
                 contemporary sensibilities.
               </p>
               <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-10">
