@@ -75,24 +75,30 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          features: string[] | null
           id: string
           image_url: string | null
+          long_description: string | null
           name: string
           slug: string
         }
         Insert: {
           created_at?: string
           description?: string | null
+          features?: string[] | null
           id?: string
           image_url?: string | null
+          long_description?: string | null
           name: string
           slug: string
         }
         Update: {
           created_at?: string
           description?: string | null
+          features?: string[] | null
           id?: string
           image_url?: string | null
+          long_description?: string | null
           name?: string
           slug?: string
         }
@@ -151,6 +157,77 @@ export type Database = {
           sort_order?: number
         }
         Relationships: []
+      }
+      models: {
+        Row: {
+          created_at: string
+          designation: string
+          id: string
+          image_url: string
+          name: string
+          quote: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          designation: string
+          id?: string
+          image_url: string
+          name: string
+          quote: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          designation?: string
+          id?: string
+          image_url?: string
+          name?: string
+          quote?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          price: string
+          sort_order: number
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          price: string
+          sort_order?: number
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          price?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
