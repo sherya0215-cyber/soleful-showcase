@@ -235,6 +235,15 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Mission & Vision Section */}
+      <MissionVision />
+
+      {/* Manufacturing Quality Section */}
+      <ManufacturingQuality />
+
+      {/* Models/Ambassadors Showcase */}
+      <ModelsShowcase />
+
       {/* Split Content Section */}
       <section className="py-24 md:py-32 bg-background">
         <div className="container-wide">
