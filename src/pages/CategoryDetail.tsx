@@ -2,9 +2,10 @@ import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
-import { ArrowLeft, ArrowRight, Star, Check, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Star, Check, Loader2, Shield, Truck, Award, Zap, Quote } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { motion } from "framer-motion";
 
 // Import category images
 import runningHero from "@/assets/running-shoes-hero.jpg";
@@ -19,6 +20,16 @@ const categoryImages: Record<string, string> = {
   "sneakers": lifestyleSneakers,
   "sliders": slidersProduct,
 };
+
+const sizeGuide = [
+  { eu: "38", uk: "5", us: "6", cm: "24" },
+  { eu: "39", uk: "6", us: "7", cm: "25" },
+  { eu: "40", uk: "7", us: "8", cm: "26" },
+  { eu: "41", uk: "8", us: "9", cm: "27" },
+  { eu: "42", uk: "9", us: "10", cm: "28" },
+  { eu: "43", uk: "10", us: "11", cm: "29" },
+  { eu: "44", uk: "11", us: "12", cm: "30" },
+];
 
 const CategoryDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -53,7 +64,35 @@ const CategoryDetail = () => {
     enabled: !!category?.id
   });
 
-  const isLoading = categoryLoading || productsLoading;
+  const { data: otherCategories } = useQuery({
+    queryKey: ['other-categories', slug],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .neq('slug', slug)
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!slug
+  });
+
+  const { data: faqs } = useQuery({
+    queryKey: ['faqs-preview'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('faqs')
+        .select('*')
+        .order('sort_order', { ascending: true })
+        .limit(3);
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
   const categoryImage = category?.image_url || categoryImages[slug || ''] || runningHero;
 
   if (categoryLoading) {
@@ -133,6 +172,33 @@ const CategoryDetail = () => {
         </Marquee>
       </section>
 
+      {/* Stats Section */}
+      <section className="py-16 bg-background border-b border-border">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { icon: Shield, value: "100%", label: "Authentic Products" },
+              { icon: Truck, value: "Free", label: "Shipping Over ₹2999" },
+              { icon: Award, value: "2 Year", label: "Quality Warranty" },
+              { icon: Zap, value: "24hr", label: "Fast Dispatch" },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
+                <p className="font-display text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-sm text-muted-foreground">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Description Section */}
       <section className="py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-6 lg:px-12">
@@ -196,10 +262,14 @@ const CategoryDetail = () => {
           ) : products && products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {products.map((product, index) => (
-                <div 
-                  key={product.id} 
-                  className="group bg-background rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift opacity-0 animate-fade-up"
-                  style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
+                <motion.div 
+                  key={product.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="group bg-background rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                 >
                   <div className="aspect-square overflow-hidden">
                     <img
@@ -226,7 +296,7 @@ const CategoryDetail = () => {
                       </Button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -236,6 +306,172 @@ const CategoryDetail = () => {
           )}
         </div>
       </section>
+
+      {/* Testimonial Section */}
+      <section className="py-20 lg:py-28 bg-foreground text-background relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <Quote className="w-96 h-96 absolute -top-20 -left-20" />
+          <Quote className="w-96 h-96 absolute -bottom-20 -right-20 rotate-180" />
+        </div>
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <Quote className="w-12 h-12 text-primary mx-auto mb-6" />
+            <p className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed mb-8">
+              "The {category.name} collection from ACCENDO has completely changed my perspective on quality footwear. 
+              The attention to detail and comfort is unmatched."
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                <span className="font-display text-xl text-primary">AK</span>
+              </div>
+              <div className="text-left">
+                <p className="font-display text-lg">Arjun Kumar</p>
+                <p className="text-background/60 text-sm">Professional Athlete</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Size Guide Section */}
+      <section className="py-20 lg:py-28 bg-background">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+              Find Your Fit
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground">
+              Size Guide
+            </h2>
+          </div>
+          
+          <div className="max-w-3xl mx-auto overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-secondary">
+                  <th className="p-4 text-left font-display text-sm uppercase tracking-wider">EU Size</th>
+                  <th className="p-4 text-left font-display text-sm uppercase tracking-wider">UK Size</th>
+                  <th className="p-4 text-left font-display text-sm uppercase tracking-wider">US Size</th>
+                  <th className="p-4 text-left font-display text-sm uppercase tracking-wider">CM</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sizeGuide.map((size, index) => (
+                  <motion.tr
+                    key={size.eu}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    className="border-b border-border hover:bg-secondary/50 transition-colors"
+                  >
+                    <td className="p-4 font-medium">{size.eu}</td>
+                    <td className="p-4">{size.uk}</td>
+                    <td className="p-4">{size.us}</td>
+                    <td className="p-4">{size.cm}</td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          
+          <p className="text-center text-muted-foreground mt-6 text-sm">
+            Not sure about your size? <Link to="/contact" className="text-primary hover:underline">Contact us</Link> for personalized assistance.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ Preview Section */}
+      {faqs && faqs.length > 0 && (
+        <section className="py-20 lg:py-28 bg-secondary">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-12">
+              <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+                Got Questions?
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground">
+                Frequently Asked
+              </h2>
+            </div>
+            
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={faq.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-background p-6 rounded-lg shadow-sm"
+                >
+                  <h3 className="font-display text-lg mb-2">{faq.question}</h3>
+                  <p className="text-muted-foreground">{faq.answer}</p>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-8">
+              <Button asChild variant="outline">
+                <Link to="/faq">
+                  View All FAQs
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related Categories Section */}
+      {otherCategories && otherCategories.length > 0 && (
+        <section className="py-20 lg:py-28 bg-background">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-12">
+              <span className="font-sans text-sm font-medium tracking-widest uppercase text-primary mb-4 block">
+                Explore More
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground">
+                Related Categories
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {otherCategories.map((cat, index) => (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link 
+                    to={`/categories/${cat.slug}`}
+                    className="group block relative aspect-[4/3] overflow-hidden rounded-lg"
+                  >
+                    <img
+                      src={cat.image_url || categoryImages[cat.slug] || runningHero}
+                      alt={cat.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="font-serif text-2xl text-background group-hover:text-primary transition-colors">
+                        {cat.name}
+                      </h3>
+                      <p className="text-background/70 text-sm mt-1">{cat.description}</p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-foreground text-background">
