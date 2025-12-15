@@ -1,44 +1,36 @@
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Marquee } from "@/components/ui/marquee";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import runningHero from "@/assets/running-shoes-hero.jpg";
 import lifestyleSneakers from "@/assets/lifestyle-sneakers.jpg";
 import slidersProduct from "@/assets/sliders-product.jpg";
 import sportsAction from "@/assets/sports-action.jpg";
 
-const categories = [
-  {
-    name: "Running Shoes",
-    slug: "running-shoes",
-    image: runningHero,
-    description:
-      "Engineered for performance, designed for comfort. Our running shoes combine cutting-edge technology with premium materials to deliver unmatched performance.",
-  },
-  {
-    name: "Sports Wear",
-    slug: "sports-wear",
-    image: sportsAction,
-    description:
-      "Athletic footwear for every sport and activity. From the court to the field, designed to enhance your athletic performance.",
-  },
-  {
-    name: "Sneakers",
-    slug: "sneakers",
-    image: lifestyleSneakers,
-    description:
-      "Contemporary style meets everyday comfort. Each pair is crafted with meticulous attention to detail, using only the finest materials.",
-  },
-  {
-    name: "Sliders",
-    slug: "sliders",
-    image: slidersProduct,
-    description:
-      "Effortless comfort for relaxed moments. Perfect for poolside lounging, post-workout recovery, or casual everyday wear.",
-  },
-];
+// Fallback images based on category slug
+const categoryImages: Record<string, string> = {
+  "running-shoes": runningHero,
+  "sports-wear": sportsAction,
+  "sneakers": lifestyleSneakers,
+  "sliders": slidersProduct,
+};
 
 const Categories = () => {
+  const { data: categories, isLoading } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('created_at', { ascending: true });
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
   return (
     <Layout>
       {/* Hero */}
@@ -75,44 +67,50 @@ const Categories = () => {
       {/* Categories Grid */}
       <section className="py-24 md:py-32">
         <div className="container-wide">
-          <div className="space-y-24">
-            {categories.map((category, index) => (
-              <div
-                key={category.slug}
-                id={category.slug}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center opacity-0 animate-fade-up`}
-                style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
-              >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <Link to={`/categories/${category.slug}`} className="block aspect-[4/3] overflow-hidden group rounded-lg shadow-lg">
-                    <img
-                      src={category.image}
-                      alt={category.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  </Link>
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="space-y-24">
+              {categories?.map((category, index) => (
+                <div
+                  key={category.slug}
+                  id={category.slug}
+                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center opacity-0 animate-fade-up`}
+                  style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
+                >
+                  <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                    <Link to={`/categories/${category.slug}`} className="block aspect-[4/3] overflow-hidden group rounded-lg shadow-lg">
+                      <img
+                        src={category.image_url || categoryImages[category.slug] || runningHero}
+                        alt={category.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </Link>
+                  </div>
+                  <div className={index % 2 === 1 ? "lg:order-1 lg:pr-12" : "lg:pl-12"}>
+                    <span className="font-serif text-6xl text-primary/30 block mb-2">
+                      0{index + 1}
+                    </span>
+                    <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">
+                      {category.name}
+                    </h2>
+                    <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-8">
+                      {category.description}
+                    </p>
+                    <Link
+                      to={`/categories/${category.slug}`}
+                      className="inline-flex items-center gap-2 font-sans text-sm font-medium tracking-wide uppercase text-foreground hover:text-primary transition-colors group"
+                    >
+                      Explore Collection
+                      <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
+                    </Link>
+                  </div>
                 </div>
-                <div className={index % 2 === 1 ? "lg:order-1 lg:pr-12" : "lg:pl-12"}>
-                  <span className="font-serif text-6xl text-primary/30 block mb-2">
-                    0{index + 1}
-                  </span>
-                  <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">
-                    {category.name}
-                  </h2>
-                  <p className="font-sans text-lg text-muted-foreground leading-relaxed mb-8">
-                    {category.description}
-                  </p>
-                  <Link
-                    to={`/categories/${category.slug}`}
-                    className="inline-flex items-center gap-2 font-sans text-sm font-medium tracking-wide uppercase text-foreground hover:text-primary transition-colors group"
-                  >
-                    Explore Collection
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
